@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.simbatda.oraclespringboot.mybatis.UserMapper">
+
+    <select id="findUserByUsername" resultType="com.simbatda.oraclespringboot.vo.UserVO">
+        SELECT id, username, password, role, enabled
+        FROM users
+        WHERE username = #{username}
+    </select>
+
+    <insert id="insertUser" parameterType="com.simbatda.oraclespringboot.dto.InsertUserDTO">
+        INSERT INTO users (username, password, role, enabled)
+        VALUES (#{username}, #{password}, #{role}, 'Y')
+    </insert>
+</mapper>
