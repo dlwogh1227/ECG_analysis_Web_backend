@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.simbatda.oraclespringboot.mybatis.PatientMapper">
+
+    <insert id="insertPatient" parameterType="com.simbatda.oraclespringboot.vo.PatientVO">
+        INSERT INTO PATIENTS (NAME, STATUS)
+        VALUES (#{name}, #{status})
+    </insert>
+
+    <select id="selectAllPatient" resultType="com.simbatda.oraclespringboot.vo.PatientVO">
+        SELECT ID, NAME, STATUS FROM PATIENTS
+    </select>
+
+    <insert id="insertScoreHistory" parameterType="com.simbatda.oraclespringboot.dto.InsertScoreHistoryDTO">
+        INSERT INTO score_history (patient_id, score)
+        VALUES (#{patientId}, #{score})
+    </insert>
+
+    <select id="selectRecentScoreHistory" parameterType="long" resultType="com.simbatda.oraclespringboot.vo.ScoreHistoryVO">
+        SELECT id, patient_id, score, timestamp
+        FROM score_history
+        WHERE patient_id = #{patientId}
+        ORDER BY timestamp DESC
+            FETCH FIRST 5 ROWS ONLY
+    </select>
+
+    <update id="updatePatientStatus" parameterType="map">
+        UPDATE patients
+        SET status = #{status}
+        WHERE id = #{id}
+    </update>
+</mapper>

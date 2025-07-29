@@ -30,12 +30,12 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/", "/index.html",
                                 "/assets/**", "/images/**", "/fonts/**",
-                                "/*.js", "/*.css", "/*.json", "/*.png", "/*.svg"
+                                "/*.js", "/*.css", "/*.json", "/*.png", "/*.svg", "/output_video/*.png"
                         ).permitAll()  // React 정적 리소스 허용
                         .requestMatchers("/api/login").permitAll()
                         .requestMatchers("/api/logout").permitAll()
                         .requestMatchers("/api/public/**").permitAll()  // 인증 없이 접근 가능한 API
-                        .requestMatchers("/api/professional/**").hasRole("professional")  // ADMIN 권한 필요
+                        .requestMatchers("/api/professional/**").hasRole("PRO")  // ADMIN 권한 필요
                         .requestMatchers("/api/user/**").authenticated()  // 로그인만 돼 있으면 가능
                         .anyRequest().denyAll() // 나머지는 모두 차단
                 )
