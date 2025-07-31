@@ -104,6 +104,7 @@ public class PublicController {
         int label = root.get("label").asInt();
         double probability = root.get("probability").asDouble();
         JsonNode ecgSignal = root.get("ecg_signal"); // 이건 배열 형태
+        JsonNode moreInfo = root.get("more_info"); // 이건 배열 형태
         String heatmapBase64 = root.get("heatmap").asText();
         JsonNode feature_importance = root.get("feature_importance");
         JsonNode gpt_result = root.get("gpt_result");
@@ -113,6 +114,7 @@ public class PublicController {
 
         return ResponseEntity.ok(Map.of(
                 "label", label,
+                    "more_info", moreInfo,
                 "probability", probability,
                 "ecg_signal", ecgSignal,  // JsonNode 그대로 반환 가능
                 "heatmap", heatmapBase64,
@@ -151,6 +153,7 @@ public class PublicController {
 
         int label = root.get("label").asInt();
         double probability = root.get("probability").asDouble();
+        JsonNode moreInfo = root.get("more_info"); // 이건 배열 형태
         JsonNode ecgSignal = root.get("ecg_signal"); // 이건 배열 형태
         String heatmapBase64 = root.get("heatmap").asText();
         JsonNode feature_importance = root.get("feature_importance");
@@ -158,6 +161,7 @@ public class PublicController {
 
         return ResponseEntity.ok(Map.of(
                 "label", label, //ecg normal: 0, abnormal: 1
+                "more_info", moreInfo,
                 "probability", probability, // 모델 예측확률
                 "ecg_signal", ecgSignal,  // ecg 신호 수치화한 데이터 (2490개, column:(time, voltage))
                 "heatmap", heatmapBase64, // gradcam heatmap만 뽑은거
